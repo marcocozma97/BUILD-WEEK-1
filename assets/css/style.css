@@ -1,0 +1,163 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #1b1535 url("..//img/bg.jpg") center / cover no-repeat fixed;
+  color: #1b2845;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.brand {
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.brand-logo {
+  height: 36px;
+}
+
+#app {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 720px;
+  width: 100%;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* Aggiungi qui le tue regole CSS per:
+   - .welcome (titolo, intro, button Inizia)
+   - .quiz (counter, timer, domanda, button risposta, classi correct/wrong)
+   - .results (percentuale, barre orizzontali, verdetto promosso/bocciato, restart)
+*/
+
+#app {
+  font-size: x-large;
+}
+
+.benvenuto {
+  color: rebeccapurple;
+}
+
+#buttonStart {
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  border-radius: 8px;
+  width: 86px;
+  font-size: 1rem;
+  background-color: #1b273f;
+  color: aliceblue;
+  padding: 13px 11px 10px;
+}
+#buttonStart:hover {
+  background-color: #1b273f;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.benvenuto h2 {
+  margin-bottom: 40px;
+  color: #1b2845;
+}
+.benvenuto p {
+  color: #1b2845;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  font-weight: 40;
+  padding: 2.5px;
+}
+.benvenuto ul {
+  font-size: 1rem;
+  color: #1b1535;
+  margin-left: 23px;
+}
+.benvenuto li {
+  font-size: 1rem;
+  color: #1b1535;
+  padding: 2.5px;
+}
+
+.nascosto {
+  display: none;
+}
+
+.domanda h5 {
+  font-weight: 300;
+  margin-bottom: 50px;
+  color: grey;
+}
+.quiz p {
+  font-weight: 100;
+  font-size: 1rem;
+  display: flex;
+
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.risposte {
+  margin-top: 40px;
+}
+
+.results {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.completamento {
+  font-size: 20px;
+  margin-top: 30px;
+}
+.percentuale {
+  font-size: 70px;
+  font-weight: 600;
+}
+.promosso {
+  background-color: rgb(220, 249, 220);
+  border-radius: 8px;
+  padding: 9.7px 4px;
+  font-weight: bolder;
+  color: rgb(9, 129, 9);
+}
+
+.progresso {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.progressBarSopra {
+  background-color: #f6f6f7;
+  padding: 5px 100px 5px 300px;
+  border-radius: 30px;
+}
+.progressBarSotto {
+  background-color: #f6f6f7;
+  padding: 10px 100px 5px 300px;
+  border-radius: 30px;
+  margin-right: 13px;
+}
+
+#buttonRestart {
+  margin-top: 30px;
+  justify-content: center;
+  border-radius: 12px;
+  width: 140px;
+  font-size: 1rem;
+  background-color: #1b273f;
+  color: aliceblue;
+  padding: 13px 11px 10px;
+}
