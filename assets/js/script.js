@@ -72,12 +72,6 @@ const QUESTIONS = [
     incorrect_answers: ["Vero"],
   },
   {
-    question:
-      "Quale linguaggio di programmazione condivide il nome con un'isola dell'Indonesia?",
-    correct_answer: "Java",
-    incorrect_answers: ["Python", "C", "Jakarta"],
-  },
-  {
     question: "Qual è la celebre frase di Nils Liedholm?",
     correct_answer: "in 10 si gioca meglio",
     incorrect_answers: ["Python", "C", "Jakarta"],
