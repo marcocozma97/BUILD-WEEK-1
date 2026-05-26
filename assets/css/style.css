@@ -161,3 +161,24 @@ body {
   color: aliceblue;
   padding: 13px 11px 10px;
 }
+
+/* CSS del Quiz */
+
+.risposte {
+  display: flex;
+  flex-direction: column;
+}
+
+.correct {
+  background-color: rgb(12, 234, 0);
+}
+
+.wrong {
+  background-color: red;
+}
+
+.btn-answer:disabled {
+  opacity: 1;
+  cursor: default;
+  color: black;
+}

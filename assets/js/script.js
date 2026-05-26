@@ -126,27 +126,70 @@ renderWelcome();
 const startButton = document.getElementById("buttonStart");
 
 startButton.addEventListener("click", function () {
-  const FEEDBACK_DELAY = 1500;
   return renderQuiz();
 });
 
-/*const renderQuiz = () => {
-  app.innerHTML = `<div class= "domanda">
-  
-  <h5>Domanda 3 di 10</h5>
+// Richiamare dall'array le domande in ordine con rispettive risposte FATTO
+// Una volta che premo una delle risposte, non posso cambiare FATTO
+// Se è giusta diventa verde FATTO
+// Se è sbagliata diventa rossa e diventa verde quella giusta FATTO
+// Premendo qualsiasi risposta si passa alla prossima domanda (con le risposte)
+// Una volta risposto alla 10 domanda si passa direttamente a RenderResults
 
+
+
+const renderQuiz = () => {
+
+  const questionNow = QUESTIONS[currentQuestion];
   
-  </div>
-  
-  
+  const answersAll = [...questionNow.incorrect_answers, questionNow.correct_answer];
+  answersAll.sort(() => Math.random() - 0.5);
+  const answersHTML = answersAll.map(risposta => {
+    return `<button class="btn-answer">${risposta}</button>`;
+  }).join('');
+
+  app.innerHTML = `<div class= "domanda">
+  <h5>Domanda ${currentQuestion + 1} di 10</h5>
+ </div>
+
   <div class= "quiz">
-  <h4>Il logo di Snapchat è una campana.</h4>
-  <div class= "risposte">
-  <p>Falso</p>
-  <p>Vero</p>
-  </div>
+  <h4>${questionNow.question}</h4>
+  <div class= "risposte">${answersHTML}</div>
 </div>`;
-}; */
+
+  const buttonsAnswers = document.querySelectorAll('.btn-answer');
+
+  buttonsAnswers.forEach(bottone => {
+    bottone.addEventListener('click', function (event) {
+      buttonsAnswers.forEach(b => {
+        b.disabled = true;
+      });
+      const clickedText = event.target.innerText;
+
+      if (clickedText === questionNow.correct_answer) {
+        event.target.classList.add("correct");
+      } else {
+        event.target.classList.add("wrong");
+        buttonsAnswers.forEach(button => {
+          if (button.innerText === questionNow.correct_answer) {
+            button.classList.add("correct");
+          }
+        });
+      }
+
+      setTimeout(() => {
+        if (currentQuestion < QUESTIONS.length - 1) {
+          currentQuestion++;
+          renderQuiz();
+        } else {
+          renderResults();
+        }
+      }, FEEDBACK_DELAY);
+
+    });
+  });
+};
+
 const renderResults = () => {
   app.innerHTML = `<div class= "results">
   
@@ -174,4 +217,4 @@ const renderResults = () => {
   </div>
   </div>`; //percentuale e promosso , da collegare a js promosso e bocciato
 };
-renderResults()
+
