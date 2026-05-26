@@ -164,10 +164,13 @@ const renderQuiz = () => {
       buttonsAnswers.forEach(b => {
         b.disabled = true;
       });
+
       const clickedText = event.target.innerText;
 
       if (clickedText === questionNow.correct_answer) {
         event.target.classList.add("correct");
+        score++;
+        console.log(score);
       } else {
         event.target.classList.add("wrong");
         buttonsAnswers.forEach(button => {
