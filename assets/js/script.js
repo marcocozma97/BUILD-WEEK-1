@@ -6,7 +6,7 @@
   - Pattern: stato → render → eventi.
 */
 
-/*
+/* 
   Array di domande.
   Ogni question è un object con:
    - question: testo della domanda
@@ -71,6 +71,7 @@ const QUESTIONS = [
     correct_answer: "Falso",
     incorrect_answers: ["Vero"],
   },
+
   {
     question: "Qual è la celebre frase di Nils Liedholm?",
     correct_answer: "in 10 si gioca meglio",
@@ -90,8 +91,6 @@ let currentQuestion = 0;
 let score = 0;
 let timerId = null;
 
-console.log(timerId);
-
 /* SCRIVI QUI LE TUE FUNZIONI:
    - render() che chiama renderWelcome / renderQuiz / renderResults in base a currentScreen
    - renderWelcome() per la schermata iniziale con button Inizia
@@ -102,9 +101,14 @@ console.log(timerId);
    - handleTimeUp() per il tempo scaduto
    - advance() per andare alla domanda successiva o ai risultati
 */
+const suonoTick = new Audio("assets/sounds/tick2.wav"); //audio nel tick per un po di vitalita
+const app = document.querySelector("#app"); //collega al main dell html
 
-const app = document.querySelector("#app");
-
+//SCHERMATA
+//1 INIZIALE
+//FUNZIONE WELCOME renderWelcome
+//
+//
 const renderWelcome = () => {
   app.innerHTML = `<div class= "benvenuto">
 <h2>Benvenuto al tuo esame</h2>
@@ -119,61 +123,117 @@ mondo dell'informatica e del web.
 </ul>
 <button id="buttonStart">Inizia</button>
 </div>`;
+
+  const startButton = document.getElementById("buttonStart");
+  startButton.addEventListener("click", function () {
+    renderQuiz(); //l'ascoltatore del bottone va messo dentro la funziione welcome perche
+    //deve creare prima i bottoni fisici e poi dargli le funzioni interne
+  });
 };
 
-renderWelcome();
+//
+//
+//
+//
+//
+//
 
-const startButton = document.getElementById("buttonStart");
+//modifiche di Javier per funzione timer
 
-startButton.addEventListener("click", function () {
-  return renderQuiz();
-});
+//copio la mia funzione render css non ancora funzionante
+// per vedere visivamente se incolla e fa funzionare il timer
+let timeLeft = TIMER_DURATION; //dichiaro variabile non costante perche
+//  con quella del prof che era una const javascript va in errore
 
-// Richiamare dall'array le domande in ordine con rispettive risposte FATTO
-// Una volta che premo una delle risposte, non posso cambiare FATTO
-// Se è giusta diventa verde FATTO
-// Se è sbagliata diventa rossa e diventa verde quella giusta FATTO
-// Premendo qualsiasi risposta si passa alla prossima domanda (con le risposte)
-// Una volta risposto alla 10 domanda si passa direttamente a RenderResults
+//SCHERMATA
+//2
+//FUNZIONE TIMER startTimer
+// (spostata prima di renderQuiz perche il browser deve
+//  leggere la funzione prima di richiamarla da qualche parte)
+//
 
+const startTimer = () => {
+  //creo funzione timer
 
+  clearInterval(timerId); //IMPORTANTE : pulisco sempre la funzione all inizio per evitare che abbia problemi o
+  // accavallamenti ogni volta che la si richiama in una domanda nuova
+  // , all inizio del quiz etc
+  timeLeft = TIMER_DURATION;
+  const scegliTimer = document.querySelector("#timer"); //scelgo il timer nel mio html finto del js
+  //che richiamo dentro al renderQuiz
+  timerId = setInterval(() => {
+    // creo arrowfunction per daegli un set interval
+    timeLeft--; //gli dico di togliere 1 secondo ogni volta
+    scegliTimer.innerText = timeLeft + "s"; //collega ad html e aggiungi s di secondi
+    suonoTick.currentTime = 0; // fa ripartire il suono a ogni secondo
+    suonoTick.play(); //da il suono del tick
+    if (timeLeft <= 5) {
+      //se va sotto i 5 secondi
+      scegliTimer.classList.add("timerRosso"); //allora dagli il css del timer rosso
+    }
+
+    if (timeLeft <= 0) {
+      //se il timer raggiunge lo zero
+      clearInterval(timerId); // allora pulisci e ferma il tempo
+      suonoTick.pause(); //ferma il suono del tick prima del render finale
+      //e portami alla schermata finale ( sara poi da cambiare con la funzione advance)
+    }
+  }, 1000); //gli do il mille per dirgli di ripetere il codice ogni secondo
+};
+//SCHERMATA
+//3
+//FUNZIONE QUIZ renderQuiz
+//
+//
+
+//SCHERMATA
+//4
+//FUNZIONE QUIZ renderQuiz
+//
+//
 
 const renderQuiz = () => {
-
+  //incollato js quiz
   const questionNow = QUESTIONS[currentQuestion];
-  
-  const answersAll = [...questionNow.incorrect_answers, questionNow.correct_answer];
+
+  const answersAll = [
+    ...questionNow.incorrect_answers,
+    questionNow.correct_answer,
+  ];
   answersAll.sort(() => Math.random() - 0.5);
-  const answersHTML = answersAll.map(risposta => {
-    return `<button class="btn-answer">${risposta}</button>`;
-  }).join('');
+  const answersHTML = answersAll
+    .map((risposta) => {
+      return `<button class="btn-answer">${risposta}</button>`;
+    })
+    .join("");
 
+  //incollato js quiz
   app.innerHTML = `<div class= "domanda">
-  <h5>Domanda ${currentQuestion + 1} di 10</h5>
- </div>
-
+  <span class= "question-counter">Domanda ${currentQuestion + 1} di ${QUESTIONS.length} </span>
+<p id = "timer" class = "timerNero">20s</p>
+   </div>
   <div class= "quiz">
   <h4>${questionNow.question}</h4>
   <div class= "risposte">${answersHTML}</div>
 </div>`;
 
-  const buttonsAnswers = document.querySelectorAll('.btn-answer');
+  const buttonsAnswers = document.querySelectorAll(".btn-answer");
 
-  buttonsAnswers.forEach(bottone => {
-    bottone.addEventListener('click', function (event) {
-      buttonsAnswers.forEach(b => {
+  buttonsAnswers.forEach((bottone) => {
+    bottone.addEventListener("click", function (event) {
+      buttonsAnswers.forEach((b) => {
         b.disabled = true;
       });
-
       const clickedText = event.target.innerText;
 
       if (clickedText === questionNow.correct_answer) {
         event.target.classList.add("correct");
         score++;
-        console.log(score);
+      } else if (timeLeft === 0) {
+        classList.add("correct");
       } else {
         event.target.classList.add("wrong");
-        buttonsAnswers.forEach(button => {
+        buttonsAnswers.forEach((button) => {
           if (button.innerText === questionNow.correct_answer) {
             button.classList.add("correct");
           }
@@ -188,10 +248,21 @@ const renderQuiz = () => {
           renderResults();
         }
       }, FEEDBACK_DELAY);
-
     });
   });
+
+  //incollato js quiz
+  startTimer(); //aggiungo il render dello startTimer qui
+  // per darlo subito appena parte ogni domanda
 };
+
+renderWelcome(); //portami alla main
+
+//SCHERMATA
+//5
+//FUNZIONE RISULTATI renderResults
+//
+//
 
 const renderResults = () => {
   app.innerHTML = `<div class= "results">
@@ -220,4 +291,9 @@ const renderResults = () => {
   </div>
   </div>`; //percentuale e promosso , da collegare a js promosso e bocciato
 };
+renderWelcome(); //riavvio l'applicazione per caricare tutto ,
+//  si mette in basso perche vogliamo assicurarci che il browser legga prima tutto
+//  il contenuto di javascript e poi sia pronto ad esesguire le funzioni
 
+//
+//modifiche di Javier per funzione timer

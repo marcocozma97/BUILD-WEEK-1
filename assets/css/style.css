@@ -91,12 +91,8 @@ body {
 .nascosto {
   display: none;
 }
+/* aggiunto css da Javier per il timer*/
 
-.domanda h5 {
-  font-weight: 300;
-  margin-bottom: 50px;
-  color: grey;
-}
 .quiz p {
   font-weight: 100;
   font-size: 1rem;
@@ -160,7 +156,51 @@ body {
   background-color: #1b273f;
   color: aliceblue;
   padding: 13px 11px 10px;
+  cursor: pointer;
 }
+
+.domanda {
+  display: flex; /* attivo flexbox */
+  justify-content: space-between; /* spingo titolo a sinistra e timer a destra cerando spazio */
+  align-items: center; /* allineo perfettamente in modo verticale */
+  width: 100%; /* fittati bene dentro il box */
+  margin-bottom: 40px; /* un po di distanza da sotto */
+}
+
+.question-counter {
+  margin: 0; /* tolgo margini di default per non sballare */
+  font-weight: 300;
+  color: grey;
+}
+
+.timerNero {
+  margin: 0; /* per non sballare */
+  font-size: 1.3rem; /* grandezza */
+  font-weight: bold; /* grassetto */
+  color: #1b2845; /* colore nero */
+  background-color: #f1f2f6; /* colore del prof */
+  padding: 8px 18px; /* piu spazio interno */
+  border-radius: 20px; /* angoli belli rotondi */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* ombra piccolissima */
+  transition: color 0.3s ease; /* un pelo di transition per il rosso */
+}
+
+.timerRosso {
+  color: #ffffff !important; /* numerino bianco */
+  background-color: #ff3b30 !important; /* sfondo bello rosso*/
+  animation: pulse 0.8s infinite alternate; /* pulsazione animata */
+}
+
+/* comandi per le animazioni del browser */
+@keyframes pulse {
+  0% {
+    transform: scale(1); /* dalla scala normale a quella piu grande dopo*/
+  }
+  100% {
+    transform: scale(1.12); /* ingrandisce del 12% */
+  }
+}
+
 
 /* CSS del Quiz */
 
