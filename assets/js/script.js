@@ -16,19 +16,19 @@
 
 const QUESTIONS = [
   {
-    question: "Cosa significa l'acronimo CPU?",
-    correct_answer: "Central Processing Unit",
+    question: "In azienda , la consegna del progetto è sempre :",
+    correct_answer: "Ieri",
     incorrect_answers: [
-      "Central Process Unit",
-      "Computer Personal Unit",
-      "Central Processor Unit",
+      "Il prima possibile",
+      "Entro venerdì",
+      "A fine mese",
     ],
   },
   {
     question:
-      "In Java, quale keyword si usa per impedire che una variabile venga modificata?",
-    correct_answer: "final",
-    incorrect_answers: ["static", "private", "public"],
+      "Quali sono i nomi di personaggi più utilizzati nel linguaggio JavaScript?",
+    correct_answer: "Pippo, Pluto , Paperino",
+    incorrect_answers: ["Topolino, Minnie, Paperino", "Braccio di Ferro, Olivia, Bruto", "Mr.Incredible ,Elastigirl , Flash"],
   },
   {
     question: "Il logo di Snapchat è una campana.",
@@ -147,8 +147,7 @@ const handleTimeout = () => {
   });
   // Passa alla domanda successiva dopo il delay
 
-  
- setTimeout(() => {
+  setTimeout(() => {
     if (currentQuestion < QUESTIONS.length - 1) {
       currentQuestion++;
       renderQuiz();
@@ -157,7 +156,6 @@ const handleTimeout = () => {
     }
   }, FEEDBACK_DELAY);
 };
-
 
 //copio la mia funzione render css non ancora funzionante
 // per vedere visivamente se incolla e fa funzionare il timer
@@ -200,7 +198,6 @@ const startTimer = () => {
     }
   }, 1000); //gli do il mille per dirgli di ripetere il codice ogni secondo
 };
-
 
 //SCHERMATA
 //3
@@ -260,12 +257,11 @@ const renderQuiz = () => {
           currentQuestion++;
           renderQuiz();
         } else {
-          renderResults();
+          renderResults(); 
         }
       }, FEEDBACK_DELAY);
     });
   });
-
 
   //incollato js quiz
   startTimer(); //aggiungo il render dello startTimer qui
@@ -279,28 +275,32 @@ renderWelcome(); //portami alla main
 //FUNZIONE RISULTATI renderResults
 //
 //
-
+const graduation = () => {
+  if (score >= 6) {
+    return `<p class="passed">Promosso</p>`;
+  } else {
+    return `<p class="failed">Bocciato</p>`;
+  }
+};
 const renderResults = () => {
+  const percentageWright = (score / 10) * 100;
+  const percentageWrong = ((QUESTIONS.length - score) / 10) * 100;
+  const percentageTotal = ((QUESTIONS.length / 10) * 100);
+
+  // in progressBarSotto mettere ${percentageTotal - percentage}
   app.innerHTML = `<div class= "results">
   
   <h3>Risultati</h3>
   <p class="completamento">Hai completato il quiz.</p>
-  <br>
-  <br>
-  <p class="percentuale">70%</p>
-  <br>
-  <br>
-  <p class="promosso">Promosso</p> 
-  <br>
-  <br>
-  <br>
-  <br>
+  <p class="percentage">${percentageWright}%</p>
+  <div class="graduation">${graduation()}</div> 
   <div class="progresso">
-  Corrette<div class="progressBarSopra"></div>7/10
+  <span>Corrette<div class="progressBarTotal" style="width: ${percentageTotal}%"><div class="progressBarSopra" style="width: ${percentageWright}%">
+  </div></div>${score}/10</span>
   </div>
-  <br>
   <div class="progresso">
-  Sbagliate <div class="progressBarSotto"></div>3/10
+  <span>Sbagliate <div class="progressBarTotal"  style="width: ${percentageTotal}%"><div class="progressBarSotto" style="width: ${percentageWrong}%"> 
+  </div></div>${QUESTIONS.length - score}/10</span>
   </div>
   <div> 
   <button id="buttonRestart">Ricomincia</button>

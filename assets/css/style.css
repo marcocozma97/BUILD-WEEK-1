@@ -69,7 +69,6 @@ body {
 .benvenuto h2 {
   color: #1b2845;
   margin-top: -10px;
-
 }
 .benvenuto p {
   color: #1b2845;
@@ -95,61 +94,6 @@ body {
 }
 /* aggiunto css da Javier per il timer*/
 
-.risposte {
-  margin-top: 40px;
-}
-
-.results {
-  text-align: center;
-  margin-top: 5px;
-}
-
-.completamento {
-  font-size: 20px;
-  margin-top: 30px;
-}
-.percentuale {
-  font-size: 70px;
-  font-weight: 600;
-}
-.promosso {
-  background-color: rgb(220, 249, 220);
-  border-radius: 8px;
-  padding: 9.7px 4px;
-  font-weight: bolder;
-  color: rgb(9, 129, 9);
-}
-
-.progresso {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.progressBarSopra {
-  background-color: #f6f6f7;
-  padding: 5px 100px 5px 300px;
-  border-radius: 30px;
-}
-.progressBarSotto {
-  background-color: #f6f6f7;
-  padding: 10px 100px 5px 300px;
-  border-radius: 30px;
-  margin-right: 13px;
-}
-
-#buttonRestart {
-  margin-top: 30px;
-  justify-content: center;
-  border-radius: 12px;
-  width: 140px;
-  font-size: 1rem;
-  background-color: #1b273f;
-  color: aliceblue;
-  padding: 13px 11px 10px;
-  cursor: pointer;
-}
 
 .domanda {
   display: flex; /* attivo flexbox */
@@ -243,4 +187,93 @@ body {
 
 .question-counter {
   font-size: 1rem;
+}
+
+.passed {
+  background-color: #2ed573;
+  padding: 18px 24px; /* bottone cicciotto */
+  font-size: 1rem; /* buon size */
+  font-family: Arial, sans-serif;
+  color: #1b2845;
+  border: 1px solid #1b2845; /* bordo sottile e scuro */
+  border-radius: 12px; /* buon radius */
+}
+.failed {
+  background-color: #ff4757;
+  padding: 18px 24px; /* bottone cicciotto */
+  font-size: 1rem; /* buon size */
+  font-family: Arial, sans-serif;
+  color: #1b2845;
+  border: 1px solid #1b2845; /* bordo sottile e scuro */
+  border-radius: 12px; /* buon radius */
+}
+
+
+.risposte {
+  margin-top: 40px;
+}
+
+.results {
+  text-align: center;
+  margin-top: 5px;
+}
+
+.completamento {
+  font-size: 20px;
+  margin-top: 30px;
+}
+.percentage {
+  font-size: 70px;
+  font-weight: 600;
+}
+.promosso {
+  background-color: rgb(220, 249, 220);
+  border-radius: 8px;
+  padding: 9.7px 4px;
+  font-weight: bolder;
+  color: rgb(9, 129, 9);
+}
+
+.progresso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+
+#buttonRestart {
+  margin-top: 30px;
+  justify-content: center;
+  border-radius: 12px;
+  width: 140px;
+  font-size: 1rem;
+  background-color: #1b273f;
+  color: aliceblue;
+  padding: 13px 11px 10px;
+  cursor: pointer;
+}
+
+
+.progressBarTotal {
+ background-color: #dbdbdb;
+ height: 12px;
+ border-radius: 6px;
+ flex-grow: 1;
+ margin: 0 12px;
+ overflow: hidden;
+ position: relative;
+}
+
+.progressBarSopra {
+  background-color: rgb(0, 255, 47);
+  height: 100%;
+  border-radius: 6px;
+}
+
+.progressBarSotto {
+  background-color: #e70316;
+  height: 100%;
+  border-radius: 6px;
 }
