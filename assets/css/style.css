@@ -1,7 +1,5 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
@@ -13,6 +11,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 24px;
+  margin: 0;
+  padding: 0;
 }
 
 .brand {
@@ -67,21 +67,23 @@ body {
 }
 
 .benvenuto h2 {
-  margin-bottom: 40px;
   color: #1b2845;
+  margin-top: -10px;
+
 }
 .benvenuto p {
   color: #1b2845;
   font-size: 1rem;
   margin-bottom: 30px;
   font-weight: 40;
-  padding: 2.5px;
 }
+
 .benvenuto ul {
   font-size: 1rem;
   color: #1b1535;
-  margin-left: 23px;
+  margin-left: -20px;
 }
+
 .benvenuto li {
   font-size: 1rem;
   color: #1b1535;
@@ -93,16 +95,6 @@ body {
 }
 /* aggiunto css da Javier per il timer*/
 
-.quiz p {
-  font-weight: 100;
-  font-size: 1rem;
-  display: flex;
-
-  padding: 15px;
-  border: 1px solid black;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
 .risposte {
   margin-top: 40px;
 }
@@ -201,24 +193,54 @@ body {
   }
 }
 
-
 /* CSS del Quiz */
 
 .risposte {
   display: flex;
   flex-direction: column;
+  gap: 16px; /* distanza tra uno e laltro */
+  margin-top: 40px;
 }
 
 .correct {
-  background-color: rgb(12, 234, 0);
+  background-color: #2ed573 !important; /* sfondo verde */
+  color: #ffffff !important; /* testo bianco */
+  border-color: #2ed573 !important; /* bordino verde */
 }
 
 .wrong {
-  background-color: red;
+  background-color: #ff4757 !important; /* sfondo rosso */
+  color: #ffffff !important; /* testo bianco */
+  border-color: #ff4757 !important; /* bordino rosso */
 }
 
 .btn-answer:disabled {
-  opacity: 1;
-  cursor: default;
-  color: black;
+  cursor: default; /* blocca hover una volta data la risposta */
+  opacity: 1; /* non sbiadisce su safari e chrome */
+}
+
+.btn-answer {
+  width: 100%;
+  text-align: left; /* testo verso sinistra */
+  padding: 18px 24px; /* bottone cicciotto */
+  font-size: 1rem; /* buon size */
+  font-family: Arial, sans-serif;
+  color: #1b2845;
+  background-color: #ffffff; /* sfondo bbianco */
+  border: 1px solid #1b2845; /* bordo sottile e scuro */
+  border-radius: 12px; /* buon radius */
+  cursor: pointer;
+  transition: all 0.2s ease; /* transition fluida per gli hover */
+}
+
+.btn-answer:hover:not(:disabled) {
+  /* metto il not disabled perche altrimenti 
+  si accende lo stesso dopo aver risposto */
+  background-color: #2b3956; /* sfondino blu per hover */
+  color: #ffffff; /* testo bianco */
+  border-color: #2b3956; /* bordino blu */
+}
+
+.question-counter {
+  font-size: 1rem;
 }

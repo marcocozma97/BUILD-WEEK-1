@@ -132,13 +132,32 @@ mondo dell'informatica e del web.
 };
 
 //
-//
-//
-//
-//
-//
 
-//modifiche di Javier per funzione timer
+const handleTimeout = () => {
+  clearInterval(timerId);
+  suonoTick.pause();
+  const questionNow = QUESTIONS[currentQuestion];
+  const buttonsAnswers = document.querySelectorAll(".btn-answer");
+  // Disabilita tutti i bottoni e mostra la risposta corretta
+  buttonsAnswers.forEach((button) => {
+    button.disabled = true;
+    if (button.innerText === questionNow.correct_answer) {
+      button.classList.add("correct");
+    }
+  });
+  // Passa alla domanda successiva dopo il delay
+
+  
+ setTimeout(() => {
+    if (currentQuestion < QUESTIONS.length - 1) {
+      currentQuestion++;
+      renderQuiz();
+    } else {
+      renderResults();
+    }
+  }, FEEDBACK_DELAY);
+};
+
 
 //copio la mia funzione render css non ancora funzionante
 // per vedere visivamente se incolla e fa funzionare il timer
@@ -165,8 +184,8 @@ const startTimer = () => {
     // creo arrowfunction per daegli un set interval
     timeLeft--; //gli dico di togliere 1 secondo ogni volta
     scegliTimer.innerText = timeLeft + "s"; //collega ad html e aggiungi s di secondi
-    suonoTick.currentTime = 0; // fa ripartire il suono a ogni secondo
-    suonoTick.play(); //da il suono del tick
+    /*suonoTick.currentTime = 0; // fa ripartire il suono a ogni secondo
+    suonoTick.play(); //da il suono del tick */
     if (timeLeft <= 5) {
       //se va sotto i 5 secondi
       scegliTimer.classList.add("timerRosso"); //allora dagli il css del timer rosso
@@ -176,20 +195,16 @@ const startTimer = () => {
       //se il timer raggiunge lo zero
       clearInterval(timerId); // allora pulisci e ferma il tempo
       suonoTick.pause(); //ferma il suono del tick prima del render finale
+      handleTimeout(); //Chiamata alla gestione tempo scaduto
       //e portami alla schermata finale ( sara poi da cambiare con la funzione advance)
     }
   }, 1000); //gli do il mille per dirgli di ripetere il codice ogni secondo
 };
+
+
 //SCHERMATA
 //3
 //FUNZIONE QUIZ renderQuiz
-//
-//
-
-//SCHERMATA
-//4
-//FUNZIONE QUIZ renderQuiz
-//
 //
 
 const renderQuiz = () => {
@@ -251,6 +266,7 @@ const renderQuiz = () => {
     });
   });
 
+
   //incollato js quiz
   startTimer(); //aggiungo il render dello startTimer qui
   // per darlo subito appena parte ogni domanda
@@ -259,7 +275,7 @@ const renderQuiz = () => {
 renderWelcome(); //portami alla main
 
 //SCHERMATA
-//5
+//4
 //FUNZIONE RISULTATI renderResults
 //
 //
@@ -294,6 +310,3 @@ const renderResults = () => {
 renderWelcome(); //riavvio l'applicazione per caricare tutto ,
 //  si mette in basso perche vogliamo assicurarci che il browser legga prima tutto
 //  il contenuto di javascript e poi sia pronto ad esesguire le funzioni
-
-//
-//modifiche di Javier per funzione timer
