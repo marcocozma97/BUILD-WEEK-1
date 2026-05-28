@@ -206,16 +206,23 @@ body {
 
 .btn-answer {
   width: 100%;
-  text-align: left; /* testo verso sinistra */
-  padding: 18px 24px; /* bottone cicciotto */
-  font-size: 1rem; /* buon size */
+  text-align: left;
+  /* testo verso sinistra */
+  padding: 18px 24px;
+  /* bottone cicciotto */
+  font-size: 1rem;
+  /* buon size */
   font-family: Arial, sans-serif;
   color: #1b2845;
-  background-color: #ffffff; /* sfondo bbianco */
-  border: 1px solid #1b2845; /* bordo sottile e scuro */
-  border-radius: 12px; /* buon radius */
+  background-color: #ffffff;
+  /* sfondo bbianco */
+  border: 1px solid #1b2845;
+  /* bordo sottile e scuro */
+  border-radius: 12px;
+  /* buon radius */
   cursor: pointer;
-  transition: all 0.2s ease; /* transition fluida per gli hover */
+  transition: all 0.2s ease;
+  /* transition fluida per gli hover */
 }
 
 .btn-answer:hover:not(:disabled) {
@@ -239,7 +246,7 @@ body {
 }
 
 .results-title {
-margin-top: -8px;
+  margin-top: -8px;
 }
 
 .complete-quiz {
@@ -255,7 +262,7 @@ margin-top: -8px;
 
 
 .passed {
- color: #20a25d;
+  color: #20a25d;
   background-color: #b0f4c4;
   padding: 12px 12px;
   font-size: 1.2rem;
@@ -355,20 +362,30 @@ margin-top: -8px;
 
 }
 
+/* Stato base della stella (Vuota) */
 .star-image {
   background: none;
-  border: 0px solid rgb(0, 0, 0);
-  font-size: 70px;
-  color: rgb(120, 92, 115);
-  cursor:pointer;
+  border: none;
+  font-size: 65px;
+  color: rgb(180, 160, 175);
+  /* Colore grigio spento di base */
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.1s ease;
 }
 
+/* Effetto dinamico al passaggio del mouse sulla singola stella */
 .star-image:hover {
-  color: rgb(174, 53, 156);
+  color: rgb(215, 40, 185);
+  transform: scale(1.1);
 }
 
-.star-image:focus {
-  color: rgb(255, 0, 208);
+/* Stato della stella quando viene cliccata e attivata tramite JS */
+.star-image.active-star {
+  color: rgb(255, 0, 208) !important;
+  /* Colore acceso definitivo */
+  animation: pop 0.3s ease-in-out;
 }
 
 .star-number {
@@ -376,9 +393,10 @@ margin-top: -8px;
 }
 
 .star-text {
-font-size: 1rem;
-margin-top: 5px;
+  font-size: 1rem;
+  margin-top: 5px;
 }
+
 
 /* Textarea cosa ti è piaciuto*/
 
@@ -395,12 +413,11 @@ margin-top: 5px;
 #liked-text {
   margin-top: 5px;
   height: 120px;
-  max-width: 100%;
-  min-width: 100%;
-  min-height: 120px;
-  max-height: 120px;
+  resize: none;
   width: 100%;
   border-radius: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top:5px;
 }
 
 #char-counter-liked {
@@ -423,12 +440,11 @@ margin-top: 5px;
 #advice-text {
   margin-top: 5px;
   height: 120px;
-  max-width: 100%;
-  min-width: 100%;
-  min-height: 120px;
-  max-height: 120px;
+  resize: none;
   width: 100%;
   border-radius: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top:5px;
 }
 
 #char-counter-advice {
@@ -439,7 +455,7 @@ margin-top: 5px;
 /* Email del feedback */
 
 .email-label {
-  display:block;
+  display: block;
 }
 
 #email-text {
@@ -449,3 +465,20 @@ margin-top: 5px;
   border-color: rgb(225, 225, 225);
   border-radius: 6px;
 }
+
+#submit-feed {
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: #302758;
+}
+
+
+textarea::placeholder {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input::placeholder {
+  font-family: Arial, Helvetica, sans-serif;
+}
+

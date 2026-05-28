@@ -325,8 +325,8 @@ const renderResults = () => {
 };
 
 
-
 const renderFeedback = () => {
+
   app.innerHTML = `
   <div class= "feedback">
     <h2 class="title-feed">Come valuteresti la tua esperienza complessiva?</h2>
@@ -339,7 +339,7 @@ const renderFeedback = () => {
       </div> 
 
       <div class="star"> 
-        <button class="star-image" type="button" data-value="2">&#9734;</button>
+        <button class="star-image" type="button" data-value="2">&#9734</button>
         <span class="star-number">2</span>
         <span class="star-text">Scarsa</span>
       </div> 
@@ -366,14 +366,14 @@ const renderFeedback = () => {
   
   <div class="what-liked">
     <label class="liked-label">Cosa ti è piaciuto di più?</label>
-    <textarea id="liked-text" maxlength="500" placeholder="Condividi qui i tuoi pensieri..."></textarea>
-    <div id="char-counter-liked">0 / 500 caratteri</div>          
+    <textarea id="liked-text" maxlength="500" placeholder=" Condividi qui i tuoi pensieri ..."></textarea>
+    <div id="char-counter-liked"> max. 500 caratteri</div>          
   </div>
 
   <div class="what-advice">
     <label class="advice-label">Cosa possiamo migliorare?</label>
-    <textarea id="advice-text" maxlength="500" placeholder="Condividi qui i tuoi pensieri..."></textarea>
-    <div id="char-counter-advice">0 / 500 caratteri</div>          
+    <textarea id="advice-text" maxlength="500" placeholder=" I tuoi suggerimenti sono preziosi per noi ..."></textarea>
+    <div id="char-counter-advice"> max. 500 caratteri</div>          
   </div>
 
   <div class="email">
@@ -385,11 +385,52 @@ const renderFeedback = () => {
   <button id="submit-feed">Invia Feedback</button>
   `;
 
-// const selectedStar = document.getElementsByClassName("star-image");
- // star-image.addEventListener("click", function () {
-  //  return `&#9733;`;
- // });
+  // 1. Logica delle stelle
+  // 2. Caratteri dinamici (numero in basso a destra si modifica scrivendo)
+  // 3. Pulsante submit-feed funzionale
+  // 4. Sistemare CSS
+const stars = document.querySelectorAll('.star-image');
+  let currentRating = 0;
+
+  stars.forEach(star => {
+    star.addEventListener('click', (e) => {
+      // .closest garantisce che venga estratto il bottone anche se si tocca il testo interno
+      const button = e.currentTarget.closest('.star-image');
+      currentRating = +button.getAttribute('data-value');
+
+      stars.forEach(s => {
+        const starValue = +s.getAttribute('data-value');
+
+        if (starValue <= currentRating) {
+          s.innerHTML = '&#9733;'; // Cambia il testo in Stella Piena
+          s.classList.add('active-star'); // Aggiunge la classe agganciata al CSS
+        } else {
+          s.innerHTML = '&#9734;'; // Ripristina Stella Vuota
+          s.classList.remove('active-star'); // Rimuove la classe
+        }
+      });
+    });
+  });
+  // button manda feedback e collega alla pagina ringraziamento
+  const sendFeedback = document.getElementById("submit-feed");
+  sendFeedback.addEventListener("click", function () {
+    renderThanksFeed();
+  });
+};
+
+const renderThanksFeed = () => {
+  app.innerHTML = `
+  <h2>Grazie per il feedback!</h2>
+  <p>🌟🚀</p>
+    <p>Il tuo contributo è prezioso. Usiamo le recensioni dei nostri studenti per rifinire le domande e rendere l'applicazione del quiz sempre migliore.</p>
+  `;
+
 }
+
+// 1. Titolo ringraziamento
+// 2. logo o emoji da aggiungere sotto
+// 3. Un messaggio di quanto sia importante il feedback per migliorarci.
+
 
 renderFeedback();
 
