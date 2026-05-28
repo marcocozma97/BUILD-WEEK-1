@@ -289,40 +289,136 @@ const graduation = () => {
     return `<p class="failed">Bocciato</p>`;
   }
 };
+
+let resultChart = null;
+
+// IL COMPONENT DEI RISULTATI CORRETTO
 const renderResults = () => {
-  const percentageWright = (score / 10) * 100;
-  const percentageWrong = ((QUESTIONS.length - score) / 10) * 100;
-  const percentageTotal = ((QUESTIONS.length / 10) * 100);
+  // 1. DICHIARIAMO PRIMA TUTTE LE VARIABILI (Così JavaScript le trova!)
+  const totalQ = QUESTIONS.length;
+  const wrongAnswers = totalQ - score;
 
-  // in progressBarSotto mettere ${percentageTotal - percentage}
-  app.innerHTML = `<div class="results-container">
+  const percentageWright = totalQ > 0 ? (score / totalQ) * 100 : 0;
+  const percentageWrong = 100 - percentageWright;
+  const percentageTotal = 100;
 
-  <h2 class="results-title">Risultati</h2>
+  const haSuperato = percentageWright >= PASS_THRESHOLD;
+  const verdettoTesto = haSuperato ? "Superato!" : "Fallito!";
+  const verdettoClasse = haSuperato ? "text-passed" : "text-failed";
 
-  <p class="complete-quiz">Hai completato il quiz.</p>
-  
-  <p class="percentage">${percentageWright}%</p>
-  <div class="graduation">${graduation()}</div> 
-  <div class="progress">
-  Corrette<div class="progressBarTotal" style="width: ${percentageTotal}%"><div class="progressBarTop" style="width: ${percentageWright}%">
-  </div></div>${score}/10
-  </div>
-  <div class="progress">
-  Sbagliate <div class="progressBarTotal"  style="width: ${percentageTotal}%"><div class="progressBarBottom" style="width: ${percentageWrong}%"> 
-  </div></div>${QUESTIONS.length - score}/10
-  </div>
-  <div> 
-  <button id="buttonRestart">Ricomincia</button>
-  </div>
-  </div>`; //percentuale e promosso , da collegare a js promosso e bocciato
+  // 2. STAMPIAMO L'HTML CON I TAG CHIUSI E LE VARIABILI COERENTI
+  app.innerHTML = `
+    <div class="results-container">
+      <h2 class="results-title">Risultati</h2>
+      <p class="complete-quiz">Hai completato il quiz.</p>
 
+      <!-- Grafico a ciambella -->
+      <div class="chart-wrapper">
+        <canvas id="resultChart"></canvas>
+        <div class="chart-center-text">
+          <span class="center-verdetto ${verdettoClasse}">${verdettoTesto}</span>
+          <strong id="animatedPercentage">0%</strong>
+          <span class="center-sub">${score}/${totalQ} domande</span>
+        </div>
+      </div>
 
+      <!-- Barra orizzontale con bottoni (CORRETTA E CHIUSA) -->
+      <div class="riepilogo-container-orizzontale">
+        <div class="riepilogo-box">
+          <div class="box-stat">
+            <span class="num-verde">${score}</span>
+            <span class="lbl-stat">Corrette</span>
+          </div>
+          <div class="box-stat">
+            <span class="num-rosso">${wrongAnswers}</span>
+            <span class="lbl-stat">Sbagliate</span>
+          </div>
+          <div class="box-stat">
+            <span class="num-blu">${totalQ}</span>
+            <span class="lbl-stat">Totali</span>
+          </div>
+        </div>
+        <button id="buttonRestart">↻ Ricomincia</button>
+      </div>
+
+      <!-- parte 3 -->
+      <p class="feedback-invito">Puoi fare il quiz quante volte vuoi.</p>
+      
+      <div class="avviso-errori">
+        ⚠️ Le domande del quiz possono contenere errori. In caso di errori sei pregato di segnalarci l'errore!
+      </div>
+      </div>
+        <button id="button-gofeedback">Vai avanti</button>
+      </div>
+    </div>
+  `;
+
+  // 3. INIZIALIZZAZIONE DEL CHART.JS
+  const ctx = document.getElementById("resultChart").getContext("2d");
+
+  if (resultChart !== null) {
+    resultChart.destroy();
+  }
+
+  // Valori d'appoggio anti-crash se lo score è 0
+  const chartValues =
+    percentageWright === 0 ? [0.01, 99.99] : [score, wrongAnswers];
+
+  resultChart = new Chart(ctx, {
+    type: "doughnut",
+    data: {
+      labels: ["Corrette", "Sbagliate"],
+      datasets: [
+        {
+          data: chartValues,
+          backgroundColor: ["#2ed573", "#ff4757"],
+          cutout: "82%",
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: true },
+      },
+    },
+  });
+
+  // 4. ANIMAZIONE NUMERO PERCENTUALE STABILE (Senza bug hover)
+  const elementoPercentuale = document.getElementById("animatedPercentage");
+  let contoIniziale = 0;
+  const targetPercentage = Math.round(percentageWright);
+
+  if (targetPercentage > 0) {
+    const intervalloNumero = setInterval(() => {
+      contoIniziale++;
+      elementoPercentuale.innerText = contoIniziale + "%";
+      if (contoIniziale >= targetPercentage) {
+        clearInterval(intervalloNumero);
+      }
+    }, 12);
+  } else {
+    elementoPercentuale.innerText = "0%";
+  }
+
+  // 5. EVENTO CLICK SUL PULSANTE RICOMINCIA
   const restartButton = document.getElementById("buttonRestart");
   restartButton.addEventListener("click", function () {
+    currentQuestion = 0;
+    score = 0;
+    userAnswers = [];
     renderWelcome();
   });
 
-};
+  const goAhead = document.getElementById("button-gofeedback");
+  goAhead.addEventListener("click", function () {
+    renderFeedback();
+});
+}
+
 
 
 const renderFeedback = () => {
@@ -420,9 +516,9 @@ const stars = document.querySelectorAll('.star-image');
 
 const renderThanksFeed = () => {
   app.innerHTML = `
-  <h2>Grazie per il feedback!</h2>
-  <p>🌟🚀</p>
-    <p>Il tuo contributo è prezioso. Usiamo le recensioni dei nostri studenti per rifinire le domande e rendere l'applicazione del quiz sempre migliore.</p>
+  <h2 class"thanks-feed-title>Grazie per il feedback!</h2>
+  <p class"emoji">🌟🚀</p>
+  <p class">Il tuo contributo è prezioso. Usiamo le recensioni dei nostri studenti per rifinire le domande e rendere l'applicazione del quiz sempre migliore.</p>
   `;
 
 }
@@ -432,9 +528,9 @@ const renderThanksFeed = () => {
 // 3. Un messaggio di quanto sia importante il feedback per migliorarci.
 
 
-renderFeedback();
+//renderFeedback();
 
-//renderWelcome();
+renderWelcome();
 
 
 //riavvio l'applicazione per caricare tutto ,

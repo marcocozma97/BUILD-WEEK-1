@@ -5,7 +5,7 @@ approccio:
 -state --> render --> events
 -manipolazione del DOM
 -gestione eventi con addEventListener
--codice ES6
+-codice ES6+
 
 
 ## FUNZIONALITÀ <!--COME È STRUTTURATO E COSA FA-->
@@ -18,6 +18,20 @@ HTML;CSS;JAVASCRIPT
 
 ## STRUTTURA DEL PROGETTO
 <!--Da capire come fare-->
+ 
+ ```
+buildweek1/
+├── assets/
+│  ├── css/
+│  │  └── style.css
+│  ├── js/
+│  │ └── script.js
+│  ├── img/
+│  └── sounds/
+├── index.html
+└── README.md
+```
+
 
 
 ## FUNZIONI PRINCIPALI
