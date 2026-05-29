@@ -25,6 +25,7 @@ body {
 
 .brand-logo {
   height: 36px;
+  margin-top: 20px;
 }
 
 #app {
@@ -60,7 +61,7 @@ body {
 
 .welcome p {
   color: #1b2845;
-  font-size: 1rem;
+  font-size: 1.4rem;
   margin-bottom: 30px;
   font-weight: 40;
 }
@@ -72,7 +73,7 @@ body {
 }
 
 .welcome li {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: #1b1535;
   padding: 2.5px;
 }
@@ -92,12 +93,12 @@ body {
 }
 
 #buttonStart:hover {
-  background-color: #1b273f;
+  background-color: #21355f;
   color: #ffffff;
   cursor: pointer;
 }
 
-/* SEZIONE QUIZ */
+/* SEZIONE QUIZ QUIZ */
 
 /* Contenitore di tutta la sezione quiz */
 
@@ -107,18 +108,18 @@ body {
   align-items: center;
   width: 100%;
   margin-bottom: 40px;
-  }
+}
 
 /* Contatore delle domande "n/10" in alto a sinistra */
 
 .question-counter {
+  font-size: 1rem;
   margin: 0;
   font-weight: 300;
   color: grey;
-  font-size: 1rem;
 }
 
-/* Timer da 20s a 6s */
+/* Timer da 20 a 6 secondi */
 
 .black-timer {
   margin: 0;
@@ -132,7 +133,7 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Timer da 5s allo scadere */
+/* Timer da 5 secondi allo scadere */
 
 .red-timer {
   color: #ffffff !important;
@@ -141,20 +142,19 @@ body {
 }
 
 /* Comandi per le animazioni del browser */
-
 @keyframes pulse {
   0% {
     transform: scale(1); /* dalla scala normale a quella piu grande dopo*/
   }
 
   100% {
-    transform: scale(1.12);/* ingrandisce del 12% */
+    transform: scale(1.12);  /* ingrandisce del 12% */
   }
 }
 
 /* RISPOSTE, DOMANDE E PULSANTE DEL QUIZ */
 
-/* Organizzazione delle risposte del quiz */
+/* Organizzazione Risposte del quiz */
 
 .answers {
   display: flex;
@@ -172,7 +172,6 @@ body {
 }
 
 /* Classe al click risposta sbagliata */
-
 .wrong {
   background-color: #ff4757 !important;
   color: #ffffff !important;
@@ -191,28 +190,30 @@ body {
 .btn-answer {
   width: 100%;
   text-align: left; 
-  padding: 18px 24px; 
-  font-size: 1rem; 
+  padding: 18px 24px;
+  font-size: 1rem;
   font-family: Arial, sans-serif;
   color: #1b2845;
   background-color: #ffffff; 
-  border: 1px solid #1b2845; 
-  border-radius: 12px; 
+  border: 1px solid #1b2845;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease; /* transition fluida per gli hover */
 }
 
-  /* metto il not disabled perche altrimenti 
+/* metto il not disabled perche altrimenti 
   si accende lo stesso dopo aver risposto */
 
 .btn-answer:hover:not(:disabled) {
-
   background-color: #2b3956;
   color: #ffffff;
   border-color: #2b3956;
 }
 
+
+
 /* SEZIONE RESULTS */
+
 
 /* Contenitore della sezione Results */
 
@@ -225,7 +226,7 @@ body {
 margin-top: -8px;
 }
 
-/* Paragrafo "Quiz" completato */
+/* Paragrafo "Quiz completato */
 
 .complete-quiz {
   font-size: 1.2rem;
@@ -253,9 +254,23 @@ margin-top: -8px;
   pointer-events: none;
 }
 
-/* Verdetto del test superato (verde) o fallito (rosso) */
+/* Verdetto del test superato (verde), fallito (rosso) */
 
-.text-passed {
+/* Testi dentro al grafico */ 
+
+.center-verdict {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.center-sub {
+  font-size: 0.85rem;
+  color: #a0aec0;
+  margin-top: 2px;
+}
+
+.text-passed{
   color: #2ed573 !important;
 }
 
@@ -263,7 +278,7 @@ margin-top: -8px;
   color: #ff4757 !important;
 }
 
-/* Percentuale nel grafico */
+/* Percenutale nel grafico */
 
 .chart-center-text strong {
   font-size: 3rem;
@@ -277,21 +292,10 @@ margin-top: -8px;
   font-size: 0.9rem;
 }
 
-/* --- TESTI DENTRO IL GRAFICO --- */
-.center-verdetto {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 2px;
-}
 
-.center-sub {
-  font-size: 0.85rem;
-  color: #a0aec0;
-  margin-top: 2px;
-}
+/* Barra sottostante il grafico */
 
-/* --- BARRA ORIZZONTALE SCURA (STILE FOTO) --- */
-.riepilogo-container-orizzontale {
+.summary-container-horizontal {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -304,7 +308,9 @@ margin-top: -8px;
   gap: 20px;
 }
 
-.riepilogo-box {
+/* Riepilogo domande "corrette", "sbagliate", "totali" */
+
+.summary-box {
   display: flex;
   gap: 20px;
 }
@@ -329,23 +335,25 @@ margin-top: -8px;
 }
 
 /* Numeri grandi colorati */
-.num-verde {
+
+.num-green {
   color: #2ed573;
   font-weight: bold;
   font-size: 1.4rem;
 }
-.num-rosso {
+.num-red {
   color: #ff4757;
   font-weight: bold;
   font-size: 1.4rem;
 }
-.num-blu {
+.num-blue {
   color: #5352ed;
   font-weight: bold;
   font-size: 1.4rem;
 }
 
 /* Riposizionamento e stile del bottone Ricomincia dentro la barra */
+
 #buttonRestart {
   margin: 0;
   background-color: #1b273f;
@@ -363,13 +371,16 @@ margin-top: -8px;
 }
 
 /* Testi di contorno inferiori */
-.feedback-invito {
+
+.feedback-invite {
   font-size: 0.85rem;
   color: #888;
   margin-bottom: 15px;
 }
 
-.avviso-errori {
+/* Barra gialla di avviso errore */
+
+.error-warning {
   background-color: rgba(255, 165, 0, 0.08);
   border: 2px solid orange;
   color: orange;
@@ -381,7 +392,8 @@ margin-top: -8px;
   line-height: 1.4;
 }
 
-/* FINE CSS PER DARE ANIMAZIONE E GRAFICO ALLA PERCENTUALE DELLA SCHERMATA FINALE */
+/* Button Vai Avanti */
+
 #button-gofeedback {
   display: flex;
   margin: 0 auto;
@@ -400,18 +412,19 @@ margin-top: -8px;
   color: #1b273f;
 }
 
-/* Feedback */
+/* SEZIONE FEEDBACK */
 
 
 /* Stelle di feedback*/
 
 .title-feed {
-  font-size: 1.4rem;
+  font-size: 1.7rem;
 }
 
 .star-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  
 }
 
 .star {
@@ -422,12 +435,12 @@ margin-top: -8px;
 }
 
 /* Stato base della stella (Vuota) */
+
 .star-image {
   background: none;
   border: none;
-  font-size: 65px;
+  font-size: 50px;
   color: rgb(180, 160, 175);
-  /* Colore grigio spento di base */
   cursor: pointer;
   padding: 0;
   line-height: 1;
@@ -436,8 +449,7 @@ margin-top: -8px;
 
 /* Effetto dinamico al passaggio del mouse sulla singola stella */
 .star-image:hover {
-  color: rgb(215, 40, 185);
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 /* Stato della stella quando viene cliccata e attivata tramite JS */
@@ -470,6 +482,7 @@ margin-top: -8px;
 }
 
 #liked-text {
+  font-size: 1rem;
   margin-top: 5px;
   height: 120px;
   resize: none;
@@ -497,6 +510,7 @@ margin-top: -8px;
 }
 
 #advice-text {
+  font-size: 1rem;
   margin-top: 5px;
   height: 120px;
   resize: none;
@@ -515,14 +529,22 @@ margin-top: -8px;
 
 .email-label {
   display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
 #email-text {
+  font-size: 1rem;
   height: 30px;
   max-width: 100%;
   min-width: 100%;
   border-color: rgb(225, 225, 225);
   border-radius: 6px;
+}
+
+.email-label .email-optional {
+  font-size: 1rem;
+  color: #1b273f;
 }
 
 #submit-feed {
@@ -554,4 +576,17 @@ textarea::placeholder {
 input::placeholder {
   font-family: Arial, Helvetica, sans-serif;
   outline-color: #21355f;
+}
+
+
+/* Pagina Ringraziamento */
+
+#thanks-feed-title {
+ font-size: 2rem;
+ text-align: center;
+ margin-bottom: 50px;
+}
+
+.goodbye {
+  font-size: 1.2rem;
 }
