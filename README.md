@@ -89,5 +89,5 @@ L'applicazione integra accorgimenti specifici per ottimizzare l'esperienza utent
 Per futuri cicli di sviluppo, analizzando l'attuale base di codice, sono state identificate le seguenti ottimizzazioni:
 
 * **Persistenza dei Dati (Local Storage):** Attualmente i dati si resettano al ricaricamento della pagina. L'implementazione del `localStorage` permetterebbe di salvare lo storico delle valutazioni e mantenere traccia del feedback dell'utente anche chiudendo il browser o dopo il refresh.
-* **Gestione dei Tentativi (Vite/Lifelines):** Introdurre un sistema a "vite" (es. massimo 3 possibilità di rifare il quiz). Così che dopo aver riprovato il quiz un determinato numero di volte, non sia più possibile premere restart e riprovare. 
+* **Gestione dei Tentativi (Vite/Tentativi):** Introdurre un sistema a "vite" (es. massimo 3 possibilità di rifare il quiz). Così che dopo aver riprovato il quiz un determinato numero di volte, non sia più possibile premere restart e riprovare. 
 * **Invio reale del Feedback:** Attualmente il form di feedback (stelle e textarea) si occupa solo del lato frontend (replicando l'UX reale, ma senza cambiamenti effettivi). Sarebbe ideale collegarlo a un servizio email o a un backend reale per raccogliere effettivamente i dati degli utenti.
